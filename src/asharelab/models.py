@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import UTC, date, datetime
+from datetime import date, datetime, timezone
 from enum import Enum
 from typing import Any, Literal
 
@@ -18,7 +18,7 @@ class Evidence(BaseModel):
 
     source: str
     summary: str
-    observed_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    observed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     url: str | None = None
     confidence: Confidence = Confidence.MEDIUM
     metadata: dict[str, Any] = Field(default_factory=dict)
