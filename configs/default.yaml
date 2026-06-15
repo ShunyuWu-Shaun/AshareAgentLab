@@ -1,0 +1,21 @@
+project:
+  name: AshareAgentLab
+  timezone: Asia/Shanghai
+
+llm:
+  provider: mock
+  model: mock-reasoner
+  monthly_budget_cny: 500
+  temperature: 0.2
+
+memory:
+  sqlite_path: data/market_memory.sqlite
+
+data:
+  default_source: mock
+  cache_dir: data/cache
+
+agents:
+  max_evidence_items: 8
+  require_invalidation: true
+

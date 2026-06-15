@@ -1,0 +1,2 @@
+[console_scripts]
+asharelab = asharelab.cli:app
