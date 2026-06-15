@@ -10,4 +10,4 @@ reports/
 artifacts/
 *.db
 *.sqlite
-
+*.egg-info/
