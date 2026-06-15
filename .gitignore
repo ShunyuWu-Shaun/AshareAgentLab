@@ -5,9 +5,9 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .DS_Store
-data/
-reports/
-artifacts/
+/data/
+/reports/
+/artifacts/
 *.db
 *.sqlite
 *.egg-info/
