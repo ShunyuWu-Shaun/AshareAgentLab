@@ -8,7 +8,7 @@ Prices change often. Check provider pages before production use.
 
 | Provider | Starter model | Why consider it | Approx starter price basis |
 |---|---|---|---|
-| DeepSeek | `deepseek-chat` | Very low cost, OpenAI-compatible, good default for extraction and reports | Official DeepSeek pricing lists low per-million-token input/output prices and cache-hit discounts |
+| DeepSeek | `deepseek-v4-flash` | Very low cost, OpenAI-compatible, good default for extraction and reports | Official DeepSeek pricing lists low per-million-token input/output prices and cache-hit discounts |
 | Alibaba Qwen | `qwen3.5-flash` or current flash model | Strong Chinese language and tool ecosystem, cheap flash tier | Alibaba Model Studio shows low flash-tier prices |
 | Zhipu / Z.ai | `glm-4.7-flashx` or current flash model | Agent/coding focus, cheap flash tier | Z.ai pricing page lists low flash model prices |
 | Moonshot Kimi | Kimi K-series | Strong long-context reading | More expensive than DeepSeek/Qwen for high-output workflows |
@@ -44,3 +44,8 @@ With DeepSeek-style pricing, this is comfortably below 500 RMB. The real cost ri
 - No autonomous retry loops without a max-steps setting.
 - Expensive models need an explicit reason in the run log.
 
+## Source Links
+
+- DeepSeek API quick start and OpenAI-compatible format: https://api-docs.deepseek.com/
+- DeepSeek model and pricing page: https://api-docs.deepseek.com/quick_start/pricing
+- DeepSeek API key authentication: https://api-docs.deepseek.com/api/deepseek-api

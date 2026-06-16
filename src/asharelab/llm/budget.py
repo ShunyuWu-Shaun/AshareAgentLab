@@ -23,7 +23,7 @@ class TokenUsage:
 PRICING: dict[str, ProviderPricing] = {
     "deepseek": ProviderPricing(
         provider="deepseek",
-        model="deepseek-chat",
+        model="deepseek-v4-flash",
         input_per_million=0.14,
         cached_input_per_million=0.0028,
         output_per_million=0.28,
@@ -95,4 +95,3 @@ class BudgetGuard:
             )
         self.spent_cny += cost
         return cost
-

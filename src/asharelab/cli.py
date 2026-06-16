@@ -13,6 +13,7 @@ from asharelab.llm.budget import TokenUsage, estimate_cost_cny
 from asharelab.llm.client import ChatClient
 from asharelab.memory import MarketMemory
 from asharelab.reports import render_daily_brief
+from asharelab.trading import run_offline_paper_day
 
 app = typer.Typer(help="AshareAgentLab command line tools.")
 console = Console()
@@ -75,6 +76,43 @@ def demo(
         console.print(markdown)
 
 
+@app.command("llm-smoke")
+def llm_smoke() -> None:
+    settings = load_settings()
+    client = ChatClient(settings.llm)
+    payload = client.complete_json(
+        "Return compact JSON only.",
+        "Return a JSON object with keys status and provider for an A-share paper trading API smoke test.",
+    )
+    console.print(payload)
+
+
+@app.command("paper-day")
+def paper_day(
+    starting_cash: float = typer.Option(100_000.0, help="Virtual starting capital in RMB."),
+    portfolio_path: Path = typer.Option(Path("data/paper_portfolio.json"), help="Paper portfolio state."),
+    journal_path: Path = typer.Option(Path("data/loop_journal.jsonl"), help="Daily loop journal."),
+    allow_repeat: bool = typer.Option(False, help="Allow repeated paper runs for the same date."),
+) -> None:
+    result = run_offline_paper_day(
+        trade_date=date.today(),
+        portfolio_path=portfolio_path,
+        journal_path=journal_path,
+        starting_cash=starting_cash,
+        allow_repeat=allow_repeat,
+    )
+    console.print(f"trade_date: {result.trade_date}")
+    console.print(f"starting_equity: {result.starting_equity:.2f}")
+    console.print(f"ending_equity: {result.ending_equity:.2f}")
+    console.print(f"daily_return: {result.daily_return:.4%}")
+    console.print(f"trades: {len(result.trades)}")
+    for trade in result.trades:
+        console.print(
+            f"- {trade.side} {trade.symbol} {trade.quantity} @ {trade.price:.2f}, fees={trade.fees:.2f}"
+        )
+    console.print(f"lesson: {result.lesson}")
+    console.print(f"prompt_adjustment: {result.prompt_adjustment}")
+
+
 if __name__ == "__main__":
     app()
-

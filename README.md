@@ -40,9 +40,40 @@ cp configs/example.env .env
 asharelab doctor
 asharelab demo --offline
 asharelab estimate --provider deepseek --input-tokens 20000000 --output-tokens 5000000
+asharelab paper-day --starting-cash 100000
 ```
 
 The offline demo uses deterministic mock data, so it can run before any API key or market-data token is configured.
+
+## DeepSeek API
+
+DeepSeek uses an OpenAI-compatible API. Create your own API key in the DeepSeek platform, then put it in `.env`:
+
+```bash
+ASHARELAB_LLM_PROVIDER=deepseek
+ASHARELAB_LLM_MODEL=deepseek-v4-flash
+ASHARELAB_LLM_API_KEY=sk-...
+```
+
+Then run:
+
+```bash
+asharelab llm-smoke
+```
+
+Codex should not register accounts, bind payment methods, or store API keys in Git.
+
+## Paper Trading Loop
+
+`asharelab paper-day` runs a deterministic offline paper-trading loop with 100,000 RMB virtual capital by default:
+
+1. collect normalized mock A-share events,
+2. run the agent committee,
+3. apply A-share paper-trading rules,
+4. update the paper portfolio,
+5. write a loop journal with P/L, lessons, and prompt/process adjustment.
+
+Artifacts are stored under `/data`, which is intentionally ignored by Git.
 
 ## Early Provider Recommendation
 
@@ -58,4 +89,3 @@ See [docs/llm_costs.md](docs/llm_costs.md) for the budget model.
 ## Safety Boundary
 
 This project is for research, simulation, and decision support. It should not place live orders without a separate execution system, explicit human approval, broker-side risk checks, and a written trading policy.
-
